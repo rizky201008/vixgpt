@@ -60,13 +60,15 @@ fun ChatInput(
         )
         IconButton(
             onClick = {
-                onButtonClick.invoke()
-                keyboardController?.hide()
-                focusManager.clearFocus()
+                if (enabled) {
+                    onButtonClick.invoke()
+                    keyboardController?.hide()
+                    focusManager.clearFocus()
+                }
             },
             modifier = Modifier
                 .clip(CircleShape)
-                .background(color = MaterialTheme.colorScheme.primary),
+                .background(color = if (enabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary),
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = Color.Transparent,
             ),

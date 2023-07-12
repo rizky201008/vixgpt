@@ -47,8 +47,8 @@ class ChatViewModel(
         private set
 
     fun sendMessage() {
-        enableMessageField = false
         if (message.isNotBlank() && enableMessageField == false) {
+            enableMessageField = false
             messageError = false
             val chat = Chat(message = message, role = 1, animated = false)
             val chat1 = Chat(message = "processing", role = 2, animated = false)

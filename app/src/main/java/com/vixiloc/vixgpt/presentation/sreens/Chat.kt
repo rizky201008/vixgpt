@@ -143,7 +143,8 @@ fun Chat(navController: NavHostController) {
                                         focusManager.clearFocus()
                                     }
                                 ),
-                                visualTransformation = PasswordVisualTransformation()
+                                visualTransformation = PasswordVisualTransformation(),
+                                singleLine = true
                             )
                             Text(text = "Before you can using this application you must add your OpenAI Api key / Token. Your Api Key / Token is saved on your device.")
                         }
