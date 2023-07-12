@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VixGPT</string>
+    <string name="lipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis elit quis orci scelerisque, id consequat lacus tempus. Sed ac pharetra turpis, ac tempus urna. In gravida dolor at eros interdum, ac ultrices tellus tempus. Donec non rutrum est.</string>
+    <item name="markdownTextId" type="id" />
+</resources>
