@@ -3,5 +3,5 @@
 </div>
 
 <p align="center">
-!\[Version\](https://badgen.net/static/VixGPT/1.0.0/cyan)
+![version](https://badgen.net/static/VixGPT/1.0.0/cyan)
 </p>
