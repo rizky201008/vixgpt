@@ -14,6 +14,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Key
+import androidx.compose.material.icons.filled.MiscellaneousServices
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -122,17 +123,44 @@ fun Chat() {
                     text = {
                         Column(modifier = Modifier.fillMaxWidth()) {
                             OutlinedTextField(
+                                value = viewModel.model.value,
+                                onValueChange = viewModel::updateModelState,
+                                isError = viewModel.modelError,
+                                label = { Text(text = stringResource(R.string.model)) },
+                                singleLine = true,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(10.dp),
-                                value = apiKey,
-                                label = { Text(text = stringResource(R.string.api_key))},
-                                onValueChange = { scope.launch { viewModel.updateApiKeyState(it) } },
+                                    .padding(5.dp),
+                                trailingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.MiscellaneousServices,
+                                        contentDescription = stringResource(R.string.model_icon)
+                                    )
+                                },
+                                keyboardOptions = KeyboardOptions.Default.copy(
+                                    autoCorrect = true,
+                                    keyboardType = KeyboardType.Text,
+                                    imeAction = ImeAction.Done
+                                ),
+                                keyboardActions = KeyboardActions(
+                                    onDone = {
+                                        focusManager.clearFocus()
+                                    }
+                                ),
+                            )
+                            Text(text = stringResource(R.string.model_message))
+                            OutlinedTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(5.dp),
+                                value = apiKey.value,
+                                label = { Text(text = stringResource(R.string.api_key)) },
+                                onValueChange = viewModel::updateApiKeyState,
                                 isError = viewModel.apikeyError,
                                 trailingIcon = {
                                     Icon(
                                         imageVector = if (viewModel.apikeyError) Icons.Default.Error else Icons.Default.Key,
-                                        contentDescription = null
+                                        contentDescription = stringResource(R.string.api_key_icon)
                                     )
                                 },
                                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -158,7 +186,7 @@ fun Chat() {
                         }
                     },
                     confirmButton = {
-                        Button(onClick = { scope.launch { viewModel.setApiKey() } }) {
+                        Button(onClick = { scope.launch { viewModel.updateSetting() } }) {
                             Text(text = stringResource(R.string.save))
                         }
                     }

@@ -1,5 +1,6 @@
 package com.vixiloc.vixgpt.presentation.viewmodels
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,13 +22,17 @@ class ChatViewModel(
     var message by mutableStateOf("")
         private set
 
-    var messageError by mutableStateOf(false)
-        private set
+    private var messageError by mutableStateOf(false)
 
-    var apikey by mutableStateOf("")
-        private set
+    private val _apikey = mutableStateOf("")
+    val apikey: State<String> get() = _apikey
+
+    private val _model = mutableStateOf("")
+    val model: State<String> get() = _model
 
     var apikeyError by mutableStateOf(false)
+        private set
+    var modelError by mutableStateOf(false)
         private set
 
     var dialog by mutableStateOf(false)
@@ -37,8 +42,12 @@ class ChatViewModel(
         message = newValue
     }
 
+    fun updateModelState(newValue: String) {
+        _model.value = newValue
+    }
+
     fun updateApiKeyState(newValue: String) {
-        apikey = newValue
+        _apikey.value = newValue
     }
 
     var enableMessageField by mutableStateOf(true)
@@ -60,7 +69,7 @@ class ChatViewModel(
 
                 val pendingChat = chatRepository.getProcessChat()
 
-                val sendMsg = openAiRepository.SendCompletions(message)
+                val sendMsg = openAiRepository.sendCompletions(message)
 
                 when (sendMsg.success) {
                     false -> {
@@ -105,14 +114,27 @@ class ChatViewModel(
         dialog = !dialog
     }
 
-    fun setApiKey() {
-        if (apikey.isNotBlank()) {
-            apikeyError = false
-            showDialog()
-            chatRepository.setApiKey(apikey)
-        } else {
+    fun updateSetting() {
+        if (apikey.value.isBlank()) {
             apikeyError = true
+        } else if (model.value.isBlank()) {
+            modelError = true
+        } else {
+            apikeyError = false
+            modelError = false
+            showDialog()
+            chatRepository.setApiKey(apikey.value)
+            openAiRepository.setModel(model.value)
         }
+    }
+
+    private fun getSetting() {
+        _apikey.value = chatRepository.getApiKey()
+        _model.value = openAiRepository.getModel()
+    }
+
+    init {
+        getSetting()
     }
 
 }
