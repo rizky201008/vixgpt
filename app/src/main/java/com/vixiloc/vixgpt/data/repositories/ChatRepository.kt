@@ -28,4 +28,6 @@ class ChatRepository(context: Context, private val apiKey: ApiKey) {
     fun clearChats() = chatDao.clearAllChats()
 
     fun setApiKey(newVal: String) = apiKey.setApiKey(newVal)
+
+    fun getApiKey(): String = apiKey.getApiKey() ?: ""
 }
