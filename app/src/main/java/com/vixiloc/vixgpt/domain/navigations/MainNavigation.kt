@@ -15,7 +15,7 @@ fun MainNavHost() {
             Splash(navController)
         }
         composable(route = Destination.Chat.route) {
-            Chat(navController)
+            Chat()
         }
     }
 }
