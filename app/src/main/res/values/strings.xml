@@ -6,5 +6,10 @@
     <string name="api_key">Api Key / Token</string>
     <string name="remind_me_later">Remind me later!</string>
     <string name="save">Save</string>
+    <string name="api_key_null">Please add your API Key from [OpenAi](https://platform.openai.com/account/api-keys) first by clicking settings button on top of this page</string>
+    <string name="model_icon">model Icon</string>
+    <string name="api_key_icon">Api key icon</string>
+    <string name="model">Custom Model</string>
+    <string name="model_message">By default this app is using gpt-3.5-turbo</string>
     <item name="markdownTextId" type="id" />
 </resources>
