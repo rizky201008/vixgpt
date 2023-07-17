@@ -1,5 +1,6 @@
 package com.vixiloc.vixgpt.data.repositories
 
+import android.content.Context
 import com.aallam.openai.api.BetaOpenAI
 import com.aallam.openai.api.chat.ChatCompletion
 import com.aallam.openai.api.chat.ChatCompletionRequest
@@ -10,18 +11,24 @@ import com.aallam.openai.api.http.Timeout
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.client.OpenAIConfig
+import com.vixiloc.vixgpt.R
 import com.vixiloc.vixgpt.data.sharedpreferences.ApiKey
+import com.vixiloc.vixgpt.data.sharedpreferences.Model
 import java.io.IOException
 import kotlin.time.Duration.Companion.seconds
 
-class OpenAiRepository(private val apiKey: ApiKey) {
+class OpenAiRepository(
+    private val apiKey: ApiKey,
+    private val model: Model,
+    private val context: Context
+) {
 
     @OptIn(BetaOpenAI::class)
-    suspend fun SendCompletions(msg: String): ChatResult {
+    suspend fun sendCompletions(msg: String): ChatResult {
         if (apiKey.getApiKey() == null) {
             return ChatResult(
                 false,
-                "Please add your API Key from [OpenAi](https://platform.openai.com/account/api-keys) first by clicking settings button on top of this page"
+                context.getString(R.string.api_key_null)
             )
         } else {
             val config = OpenAIConfig(
@@ -31,7 +38,7 @@ class OpenAiRepository(private val apiKey: ApiKey) {
             val openAi = OpenAI(config = config)
             try {
                 val chatCompletionRequest = ChatCompletionRequest(
-                    model = ModelId("gpt-3.5-turbo"), messages = listOf(
+                    model = ModelId(model.getModel()!!), messages = listOf(
                         ChatMessage(
                             role = ChatRole.User, content = msg
                         )
@@ -63,7 +70,11 @@ class OpenAiRepository(private val apiKey: ApiKey) {
             }
         }
     }
+
+    fun setModel(newVal: String) = model.setModel(newVal)
+    fun getModel(): String = model.getModel()!!
 }
+
 
 data class ChatResult(
     val success: Boolean,
