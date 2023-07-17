@@ -11,7 +11,7 @@ val repositoryModule = module {
     }
 
     single {
-        OpenAiRepository(get())
+        OpenAiRepository(get(), get(),androidContext())
     }
 
 }
