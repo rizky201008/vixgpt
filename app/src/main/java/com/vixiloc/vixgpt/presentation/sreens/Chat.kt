@@ -19,20 +19,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
+import com.vixiloc.vixgpt.R
 import com.vixiloc.vixgpt.presentation.components.ChatBubble
 import com.vixiloc.vixgpt.presentation.components.ChatInput
 import com.vixiloc.vixgpt.presentation.components.MainTopApBar
@@ -43,7 +44,7 @@ import org.koin.androidx.compose.getViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Chat(navController: NavHostController) {
+fun Chat() {
     val viewModel: ChatViewModel = getViewModel()
     val scope = rememberCoroutineScope()
     val chats by viewModel.chats.collectAsState(initial = null)
@@ -117,14 +118,15 @@ fun Chat(navController: NavHostController) {
             if (viewModel.dialog) {
                 AlertDialog(
                     onDismissRequest = { scope.launch { viewModel.showDialog() } },
-                    title = { Text(text = "Setup API Key") },
+                    title = { Text(text = stringResource(R.string.settings)) },
                     text = {
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            TextField(
+                            OutlinedTextField(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(10.dp),
                                 value = apiKey,
+                                label = { Text(text = stringResource(R.string.api_key))},
                                 onValueChange = { scope.launch { viewModel.updateApiKeyState(it) } },
                                 isError = viewModel.apikeyError,
                                 trailingIcon = {
@@ -146,18 +148,18 @@ fun Chat(navController: NavHostController) {
                                 visualTransformation = PasswordVisualTransformation(),
                                 singleLine = true
                             )
-                            Text(text = "Before you can using this application you must add your OpenAI Api key / Token. Your Api Key / Token is saved on your device.")
+                            Text(text = stringResource(R.string.token_message))
                         }
                     },
                     shape = MaterialTheme.shapes.large,
                     dismissButton = {
                         Button(onClick = { scope.launch { viewModel.showDialog() } }) {
-                            Text(text = "Remind me later!")
+                            Text(text = stringResource(R.string.remind_me_later))
                         }
                     },
                     confirmButton = {
                         Button(onClick = { scope.launch { viewModel.setApiKey() } }) {
-                            Text(text = "Save")
+                            Text(text = stringResource(R.string.save))
                         }
                     }
                 )

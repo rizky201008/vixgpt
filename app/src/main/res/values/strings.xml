@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">VixGPT</string>
     <string name="lipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer mattis elit quis orci scelerisque, id consequat lacus tempus. Sed ac pharetra turpis, ac tempus urna. In gravida dolor at eros interdum, ac ultrices tellus tempus. Donec non rutrum est.</string>
+    <string name="token_message">Before you can using this application you must add your OpenAI Api key / Token. Your Api Key / Token is saved on your device.</string>
+    <string name="settings">Settings</string>
+    <string name="api_key">Api Key / Token</string>
+    <string name="remind_me_later">Remind me later!</string>
+    <string name="save">Save</string>
     <item name="markdownTextId" type="id" />
 </resources>
