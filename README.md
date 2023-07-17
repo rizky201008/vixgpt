@@ -2,7 +2,7 @@
 <h1 align="center" style="width: 100%;">VixGPT<br/><span><p>Open source OpenAi client app for Android</p></span></h1>
 </div>
 
-<p align="center">  <img src="https://badgen.net/static/VixGPT/1.1.1/cyan" alt="version"> </p>
+<p align="center">  <img src="https://badgen.net/static/VixGPT/1.2.0/cyan" alt="version"> </p>
 <h2>Libraries used in this project</h2>
 
 | Name | Version |
