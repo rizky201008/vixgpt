@@ -1,4 +1,4 @@
-package com.vixiloc.vixgpt.ui.theme
+package com.vixiloc.vixgpt.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

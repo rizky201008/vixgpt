@@ -1,4 +1,4 @@
-package com.vixiloc.vixgpt.ui.theme
+package com.vixiloc.vixgpt.presentation.ui.theme
 
 import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.shape.RoundedCornerShape
