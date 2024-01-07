@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace 'com.vixiloc.vixgpt'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.vixiloc.vixgpt"
         minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.2.0"
+        targetSdk 34
+        versionCode 2
+        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -60,18 +60,18 @@ dependencies {
     implementation libs.ui.tooling.preview
     implementation libs.material3
     implementation libs.compose.markdown
-    implementation libs.typist
     implementation libs.koin
     implementation libs.material.icons
-    implementation libs.room
-    implementation libs.room.ktx
     implementation libs.accompanist.insets
     implementation libs.openai.client
     implementation libs.ktor.client.okhttp
     implementation libs.lottie.compose
+    def room_version = "2.5.0"
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.ktx
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
     implementation libs.androidx.navigation.compose
-    ksp libs.room.compiler
-    annotationProcessor libs.room.presistence
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core
